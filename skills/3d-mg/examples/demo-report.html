@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>江淮汽车（600418.SH）</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-text-size-adjust:100%;}
+body{background:#f4f6fa;color:#16203a;line-height:1.65;font-size:15px;
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  padding:16px 14px 40px;}
+.wrap{max-width:1400px;margin:0 auto;}
+/* ---------- 控制栏 ---------- */
+.bar{max-width:1400px;margin:0 auto 14px;display:flex;flex-wrap:wrap;gap:10px;
+  align-items:center;justify-content:space-between;}
+.bar .status{font-size:13px;color:#4d5875;}
+.bar .status b{color:#2b6cb0;}
+.btn{border:1px solid #dbe2ee;background:#fff;color:#2b6cb0;border-radius:8px;
+  padding:7px 14px;font-size:13px;cursor:pointer;font-family:inherit;}
+.btn:hover{background:#f2f6fd;}
+.btn.primary{background:#2b6cb0;border-color:#2b6cb0;color:#fff;}
+.btn.primary:hover{background:#1f4680;}
+/* ---------- 报告容器：默认窄屏=单列 ---------- */
+.grid{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;}
+.grid > .card,.grid > .hero{flex:1 1 100%;min-width:0;}
+/* ---------- 封面 ---------- */
+.hero{padding:26px 22px 24px;border-radius:14px;
+  background:linear-gradient(135deg,#1f4680,#2b6cb0);color:#fff;
+  box-shadow:0 6px 20px rgba(31,70,128,.18);}
+.hero .kicker{font-size:12px;letter-spacing:3px;opacity:.82;margin-bottom:8px;}
+.hero .t{font-size:28px;font-weight:700;line-height:1.3;}
+.hero .s{font-size:16px;margin-top:8px;opacity:.95;}
+.hero .x{font-size:13px;margin-top:14px;padding-top:12px;
+  border-top:1px solid rgba(255,255,255,.25);opacity:.88;}
+/* ---------- 模块卡片 ---------- */
+.card{background:#fff;border:1px solid #e5e9f2;border-radius:14px;
+  padding:16px 16px 18px;box-shadow:0 2px 10px rgba(22,32,58,.05);}
+.card .hd{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:4px;}
+.card .lb{font-size:12px;font-weight:600;color:#2b6cb0;
+  background:rgba(47,91,216,.1);border-radius:5px;padding:2px 9px;}
+.card .ttl{font-size:18px;font-weight:700;color:#16203a;line-height:1.4;}
+.card .sub{font-size:13px;color:#8b93a8;margin-bottom:4px;}
+.bd{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;align-items:stretch;}
+/* KPI 大数字：窄屏两个一行 */
+.kpi{flex:1 1 calc(50% - 5px);min-width:0;background:#f7f9fc;
+  border-radius:10px;padding:11px 12px;}
+.kpi .v{font-size:22px;font-weight:700;color:#2b6cb0;line-height:1.2;word-break:break-all;}
+.kpi .n{font-size:13px;color:#4d5875;margin-top:3px;font-weight:600;}
+.kpi .d{font-size:12px;color:#8b93a8;margin-top:2px;}
+/* 表格：列多时横向可滑 */
+.tbwrap{flex:1 1 100%;min-width:0;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;min-width:100%;}
+th,td{border:1px solid #e5e9f2;padding:8px 10px;font-size:13px;
+  text-align:left;vertical-align:top;line-height:1.55;}
+th{background:#edf2f7;color:#16203a;font-weight:700;white-space:nowrap;}
+td{color:#4d5875;}
+/* 列表 / 短段落 */
+.li{flex:1 1 100%;display:flex;gap:8px;align-items:flex-start;}
+.li .dot{flex:none;color:#2b6cb0;font-weight:700;}
+.li .tx{flex:1;font-size:14px;color:#4d5875;}
+.p{flex:1 1 100%;font-size:14px;color:#4d5875;line-height:1.75;}
+/* 因果链 */
+.chain{flex:1 1 100%;background:#f7f9fc;border-left:3px solid #5b7cea;
+  border-radius:0 8px 8px 0;padding:11px 12px;}
+.chain .cn{font-size:13px;font-weight:700;color:#2b6cb0;margin-bottom:7px;}
+.chain .cf{display:flex;flex-wrap:wrap;align-items:center;gap:6px;}
+.chain .cs{font-size:13px;color:#16203a;background:#fff;border:1px solid #e5e9f2;
+  border-radius:6px;padding:3px 9px;}
+.chain .ca{color:#5b7cea;font-weight:700;}
+/* 关键判断 */
+.note{flex:1 1 100%;display:flex;gap:8px;align-items:flex-start;
+  background:#fdf8ee;border:1px solid #ecd9b4;border-radius:8px;padding:10px 12px;}
+.note .mk{flex:none;font-size:12px;font-weight:700;color:#9a6b16;
+  background:#f6e8cd;border-radius:5px;padding:1px 8px;}
+.note .tx{flex:1;font-size:13.5px;color:#7a5a1c;}
+.mmd{flex:1 1 100%;overflow-x:auto;}
+.mmd svg{max-width:100%;height:auto;}
+/* ========== 宽屏：两栏 + 通栏卡片 ========== */
+@media (min-width:769px){
+  body{padding:24px 24px 60px;font-size:15px;}
+  .grid{gap:20px;}
+  .grid > .card{flex:1 1 calc(50% - 10px);}
+  .grid > .card.wide,.grid > .hero{flex:1 1 100%;}
+  .kpi{flex:1 1 calc(25% - 8px);}
+  .hero{padding:36px 34px 32px;}
+  .hero .t{font-size:34px;}
+  .card{padding:20px 22px 22px;}
+  .card .ttl{font-size:19px;}
+}
+@media print{.bar{display:none;}body{background:#fff;padding:0;}
+  .card,.hero{box-shadow:none;break-inside:avoid;}}
+/* 小屏：把表格压紧，四列表格尽量一屏放得下（放不下时仍可横滑） */
+@media (max-width:480px){
+  th,td{padding:6px 7px;font-size:12px;}
+  th{white-space:normal;}
+  .kpi .v{font-size:20px;}
+  .hero .t{font-size:23px;}
+}
+/* 强制视图（覆盖媒体查询，靠 class 优先级） */
+.grid.force-landscape{display:flex !important;flex-wrap:wrap !important;gap:20px !important;}
+.grid.force-landscape > .card{flex:1 1 calc(50% - 10px) !important;}
+.grid.force-landscape > .card.wide,.grid.force-landscape > .hero{flex:1 1 100% !important;}
+.grid.force-landscape .kpi{flex:1 1 calc(25% - 8px) !important;}
+.grid.force-portrait{display:flex !important;flex-direction:column !important;gap:16px !important;}
+.grid.force-portrait > .card,.grid.force-portrait > .hero{flex:1 1 auto !important;}
+.grid.force-portrait .kpi{flex:1 1 calc(50% - 5px) !important;}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="status" id="status">当前视图：<b>自动适配</b></div>
+  <div>
+    <button class="btn primary" id="bLand">强制横向（双栏）</button>
+    <button class="btn" id="bPort">强制竖向（单列）</button>
+    <button class="btn" id="bAuto">恢复自动适配</button>
+  </div>
+</div>
+<div class="wrap"><div class="grid" id="grid"></div></div>
+<script id="report-data" type="application/json">{"title":"江淮汽车（600418.SH）","blocks":[{"type":"hero","label":"江淮汽车（600418.SH）","title":"核心痛点诊断与经营决策推演","sub":"现状镜像 → 因果镜像 → 推演镜像","items":[],"k":"h0","wide":true},{"type":"card","label":"摘要","title":"一句话结论与三大痛点","sub":"","items":[{"t":"p","text":"不是「毛利不够」，是「毛利增速追不上费用增速 + 三条结构性失血点同时开着」。","k":"k2_0"},{"t":"table","head":["序","痛点","量级","置信度"],"rows":[["①","三项费用超过毛利，经营性缺口","11.77 亿","高"],["②","大众安徽连续 3 年累计亏损","超 115 亿","高"],["③","乘用车产能利用率仅 42.36%","隐性，未入账","中"]],"k":"k2_1"},{"t":"note","mark":"★","text":"「营收增、利润亏、销量降」并存 = 结构性失血与边际改善同时发生，必须拆开看。","k":"k2_2"}],"k":"c1","wide":true},{"type":"card","label":"财务事实","title":"2025 核心财务事实：费用结构是问题所在","sub":"","items":[{"t":"kpi","v":"57.1 亿","n":"毛利额","d":"毛利率 12.29%（+1.46pp）","k":"k3_0"},{"t":"kpi","v":"68.87 亿","n":"三项费用","d":"费用率 14.82%","k":"k3_1"},{"t":"kpi","v":"11.77 亿","n":"经营缺口","d":"占归母亏损 69%","k":"k3_2"},{"t":"table","head":["指标","2025 年","同比","关键含义"],"rows":[["营业收入","464.76 亿","+10.35%","增长主要靠尊界拉高均价"],["归母净利润","-17.03 亿","减亏 4.57%","连续 2 年亏损"],["扣非净利润","-25.00 亿","减亏 8.81%","2017—2025 累计亏损约 163 亿"],["销售毛利率","12.29%","+1.46pp","改善，但被费用率 14.82% 盖过"],["经营现金流净额","33.95 亿","+25.2%","全年唯一亮点"]],"k":"k3_3"}],"k":"c2","wide":false},{"type":"card","label":"销量产能","title":"两项跑输大盘 + 产能空转","sub":"","items":[{"t":"kpi","v":"42.36%","n":"乘用车产能利用率","d":"设计 34 万 · 实际 14.4 万 · 闲置率 57.64%","k":"k4_0"},{"t":"kpi","v":"72.68%","n":"商用车产能利用率","d":"相对健康，但未达 80% 良好线","k":"k4_1"},{"t":"table","head":["板块","江淮","行业","差距"],"rows":[["商用车销量","-0.55%","+10.9%","-11.5pp"],["乘用车销量","-10.63%","+9.2%","-19.8pp"]],"k":"k4_2"}],"k":"c3","wide":false},{"type":"card","label":"三段归因","title":"账面亏 17 亿 ≠ 经营亏 25 亿","sub":"","items":[{"t":"table","head":["归因项","金额（亿）","说明"],"rows":[["毛利不足覆盖三费","-11.77","三费 68.87 − 毛利 57.10"],["投资净收益","-8.74","其中大众安徽权益法 -10.77 亿"],["财务费用净收益","+1.61","利息收入为正贡献"],["小计","-17.36","与报表 -17.03 差 0.33"]],"k":"k5_0"},{"t":"li","text":"验证：扣非 -25.00 + 非经常性损益 +7.97（含政府补助 5.69）= -17.03 亿","k":"k5_1"},{"t":"li","text":"发现1：费用结构是主战场，经营缺口 11.77 亿占归母亏损 69%，最大可控变量。","k":"k5_2"},{"t":"li","text":"发现2：大众安徽 -10.77 亿占扣非亏损 43%，且不受江淮控制。","k":"k5_3"},{"t":"li","text":"发现3：没有 7.97 亿补助与资产处置，账面亏损会是 25 亿。","k":"k5_4"}],"k":"c4","wide":false},{"type":"card","label":"因果链","title":"外生冲击 → 三条失血链 → 断点","sub":"","items":[{"t":"chain","name":"链① 销量失血","flow":"销量 38.41 万辆（-4.72%） → 固定成本无法摊薄 → 产能利用率 42.36%","steps":["销量 38.41 万辆（-4.72%）","固定成本无法摊薄","产能利用率 42.36%"],"k":"k6_0"},{"t":"chain","name":"链② 联营失血","flow":"大众安徽经营亏损 → 权益法投资损失 → -10.77 亿","steps":["大众安徽经营亏损","权益法投资损失","-10.77 亿"],"k":"k6_1"},{"t":"chain","name":"链③ 费用失血","flow":"尊界爬坡期营销投入 → 广宣及销售服务费 15.72 亿 → 销售费用 +97.5%","steps":["尊界爬坡期营销投入","广宣及销售服务费 15.72 亿","销售费用 +97.5%"],"k":"k6_2"},{"t":"note","mark":"★ 断点","text":"三项费用 68.87 亿 ＞ 毛利 57.10 亿；费用率 14.82% ＞ 毛利率 12.29%（差 2.53pp）→ 经营缺口 11.77 亿","k":"k6_3"}],"k":"c5","wide":true},{"type":"card","label":"痛点①","title":"费用率超过毛利率（最高优先级）","sub":"","items":[{"t":"table","head":["项目","2024","2025","变化"],"rows":[["广宣及销售服务费","1.76 亿","15.72 亿","约 +8 倍"],["销售费用","14.67 亿","28.97 亿","+97.5%"],["管理费用","17.89 亿","21.81 亿","+21.9%"],["研发费用","17.63 亿","18.09 亿","+2.6%"],["三项费用合计","约 54 亿","68.87 亿","+14.8 亿"]],"k":"k7_0"},{"t":"li","text":"判断1：毛利率改善（+1.46pp）追不上费用率（14.82% 且在上升）","k":"k7_1"},{"t":"li","text":"判断2：尊界是「用费用买增长」，必须算清爬坡何时结束、LTV/CAC 是否成立","k":"k7_2"},{"t":"li","text":"判断3：若 2026 营收 801 亿而费用率不降：801×(12.28%-14.82%)≈-20.3 亿，仍亏","k":"k7_3"},{"t":"note","mark":"弹性","text":"费用率每降 0.5pp × 650 亿营收 → 增利约 3.25 亿（置信度中）","k":"k7_4"}],"k":"c6","wide":true},{"type":"card","label":"痛点③","title":"产能闲置 + 内部负外部性","sub":"","items":[{"t":"kpi","v":"42.36%","n":"乘用车产能利用率","d":"近六成产能折旧空转，最持久的痛点","k":"k8_0"},{"t":"chain","name":"负反馈环","flow":"产品力不足 → 销量 -10.63% → 产能闲置 → 折旧无法摊薄 → 单车成本升 → 毛利承压 → 更难卖","steps":["产品力不足","销量 -10.63%","产能闲置","折旧无法摊薄","单车成本升","毛利承压","更难卖"],"k":"k8_1"},{"t":"table","head":["⊙","变量","负外部性","裁决层级"],"rows":[["⊙1","大众合资 25% 股权","每年拖累 8-13 亿","集团经营层"],["⊙2","尊界营销投入","销售费用 +97.5% 侵蚀毛利","集团总经办"],["⊙4","传统乘用车产能","闲置率 57.64% 折旧空转","集团制造委"],["⊙5","政府补助","掩盖真实亏损 7.97 亿","财务+审计委"]],"k":"k8_2"},{"t":"note","mark":"★","text":"⊙5 最值得警惕：扣非只从 -27.41 改善到 -25.00，差距全靠补助。","k":"k8_3"}],"k":"c7","wide":true},{"type":"card","label":"推演镜像","title":"2026 目标反推 + 四情景","sub":"","items":[{"t":"table","head":["条件","需要什么","现状","判定"],"rows":[["营收 650 亿","尊界放量 + 出口恢复","464.76 亿","+185 亿，依赖增量"],["费用率降至 12% 以下","广宣费见顶回落","14.82%","★ 最关键也最未提"]],"k":"k9_0"},{"t":"table","head":["情景","关键假设","结果方向"],"rows":[["保守","尊界月销 600-800，出口续滑","亏损扩大"],["治理干预","广宣见顶 + 费用率 13.2% + 产能 48%","仍差 2.6 亿但收窄 78%"]],"k":"k9_1"}],"k":"c8","wide":true},{"type":"card","label":"优先级","title":"敏感性排序 + 痛点优先级","sub":"","items":[{"t":"table","head":["排序","变量","每变动影响","可控性"],"rows":[["1","三项费用率","每降 1pp 增利约 6.5 亿","高（自己说了算）"],["2","大众安徽亏损","减亏 10 亿 → 增利 2.5 亿","低（无控制权）"],["3","产能利用率","每提 1pp ≈ 0.4-0.6 亿","中（需新品）"]],"k":"k10_0"},{"t":"li","text":"干预逻辑：先做「自己说了算」的（费用率、产能），再做「要谈判的」（大众安徽），最后做长期投入的。","k":"k10_1"}],"k":"c9","wide":true},{"type":"card","label":"结论","title":"必须说清的三句话","sub":"","items":[{"t":"li","text":"第一：这不是「江淮不行」的报告，边际向好；真正的问题是边际改善速度追不上结构性问题体量。","k":"k11_0"},{"t":"li","text":"第二：「扣非连亏 9 年」和「2025 只亏 17 亿」是两个问题，后者被 7.97 亿非经常损益掩盖。","k":"k11_1"},{"t":"li","text":"第三：治理不是预测——给关键变量的可控区间 + 触发阈值 + 动作，供月度滚动修正。","k":"k11_2"},{"t":"table","head":["声明","内容"],"rows":[["数据来源","2025 年报及审计报告、2026 半年报、产销快报、公开报道"],["置信度","费用率/产能/大众亏损 = 回归级·高；弹性与战略判断 = 专家估计·待验证"]],"k":"k11_3"}],"k":"c10","wide":false}],"footer":"本报告基于公开信息整理，不构成投资建议。"}</script>
+<script id="demo-data" type="application/json">{
+  "title": "3D-MG 诊断报告 · 版式示例",
+  "blocks": [
+    {
+      "type": "hero",
+      "label": "示例公司（000000.SH）",
+      "wide": true,
+      "title": "核心痛点诊断与经营决策推演",
+      "sub": "现状镜像 → 因果镜像 → 推演镜像　·　本页为版式示例，数据为占位"
+    },
+    {
+      "type": "card",
+      "label": "摘要",
+      "title": "一句话结论与三大痛点",
+      "wide": true,
+      "items": [
+        {
+          "t": "p",
+          "text": "不是「毛利不够」，是「毛利增速追不上费用增速 + 三条结构性失血点同时开着」。"
+        },
+        {
+          "t": "kpi",
+          "v": "14.82%",
+          "n": "费用率",
+          "d": "高于毛利率 12.29%"
+        },
+        {
+          "t": "kpi",
+          "v": "11.77 亿",
+          "n": "经营缺口",
+          "d": "占归母亏损 69%"
+        },
+        {
+          "t": "kpi",
+          "v": "42.36%",
+          "n": "产能利用率",
+          "d": "近六成产能折旧空转"
+        },
+        {
+          "t": "note",
+          "mark": "★",
+          "text": "「营收增、利润亏、销量降」并存 = 结构性失血与边际改善同时发生，必须拆开看。"
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "label": "财务事实",
+      "title": "费用结构是问题所在",
+      "wide": true,
+      "items": [
+        {
+          "t": "table",
+          "head": [
+            "指标",
+            "2025 年",
+            "同比",
+            "关键含义"
+          ],
+          "rows": [
+            [
+              "营业收入",
+              "464.76 亿",
+              "+10.35%",
+              "靠高端车型拉高均价"
+            ],
+            [
+              "扣非净利润",
+              "-25.00 亿",
+              "减亏 8.81%",
+              "累计亏损约 163 亿"
+            ],
+            [
+              "经营现金流",
+              "33.95 亿",
+              "+25.2%",
+              "全年唯一亮点"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "label": "因果链",
+      "title": "外生冲击 → 三条失血链 → 断点",
+      "items": [
+        {
+          "t": "chain",
+          "name": "链① 销量失血",
+          "flow": "销量 -4.72% → 固定成本无法摊薄 → 产能利用率 42.36%",
+          "steps": [
+            "销量 -4.72%",
+            "固定成本无法摊薄",
+            "产能利用率 42.36%"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "card",
+      "label": "判断",
+      "title": "最反直觉的一条",
+      "items": [
+        {
+          "t": "li",
+          "text": "可控性最高的变量，恰恰是公司目标里没提的那个"
+        },
+        {
+          "t": "note",
+          "mark": "★",
+          "text": "记录了结果，没管住机制。"
+        }
+      ]
+    }
+  ],
+  "footer": "本报告基于公开信息整理，不构成投资建议。"
+}</script>
+<script>
+(function(){
+  "use strict";
+  var FALLBACK = "__REPORT_JSON__";
+  var raw = document.getElementById("report-data").textContent.trim();
+  var data;
+  if (!raw || raw === FALLBACK) {
+    data = JSON.parse(document.getElementById("demo-data").textContent);
+  } else {
+    try { data = JSON.parse(raw); } catch (e) { data = null; }
+  }
+  if (!data) { return; }
+  if (data.title) { document.title = data.title; }
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined && text !== null) n.textContent = text;
+    return n;
+  }
+  /* 建一张卡片（封面用 .hero） */
+  function buildCard(b){
+    var root = el("div", (b.type === "hero" ? "hero" : "card") + (b.wide ? " wide" : ""));
+    if (b.type === "hero") {
+      root.appendChild(el("div", "kicker", "3D-MG · 三维镜像治理法"));
+      root.appendChild(el("div", "t", b.label || ""));
+      if (b.title) root.appendChild(el("div", "s", b.title));
+      if (b.sub) root.appendChild(el("div", "x", b.sub));
+      return root;
+    }
+    if (b.label || b.title) {
+      var hd = el("div", "hd");
+      if (b.label) hd.appendChild(el("span", "lb", b.label));
+      if (b.title) hd.appendChild(el("div", "ttl", b.title));
+      root.appendChild(hd);
+    }
+    if (b.sub) root.appendChild(el("div", "sub", b.sub));
+    var bd = el("div", "bd");
+    (b.items || []).forEach(function(it){ if (it) bd.appendChild(buildItem(it)); });
+    root.appendChild(bd);
+    return root;
+  }
+  function buildItem(it){
+    if (it.t === "kpi") {
+      var k = el("div", "kpi");
+      k.appendChild(el("div", "v", it.v || ""));
+      if (it.n) k.appendChild(el("div", "n", it.n));
+      if (it.d) k.appendChild(el("div", "d", it.d));
+      return k;
+    }
+    if (it.t === "table") {
+      var w = el("div", "tbwrap");
+      var t = el("table");
+      var head = it.head || [];
+      var cols = Math.max(head.length, (it.rows || []).reduce(function(m, r){
+        return Math.max(m, (r || []).length); }, 0));
+      if (head.length) {
+        var tr = el("tr");
+        for (var i = 0; i < cols; i++) tr.appendChild(el("th", null, head[i] || ""));
+        var th = el("thead"); th.appendChild(tr); t.appendChild(th);
+      }
+      var tb = el("tbody");
+      (it.rows || []).forEach(function(r){
+        var tr2 = el("tr");
+        for (var j = 0; j < cols; j++) tr2.appendChild(el("td", null, (r && r[j]) || ""));
+        tb.appendChild(tr2);
+      });
+      t.appendChild(tb); w.appendChild(t); return w;
+    }
+    if (it.t === "li") {
+      var li = el("div", "li");
+      li.appendChild(el("span", "dot", "·"));
+      li.appendChild(el("span", "tx", it.text || ""));
+      return li;
+    }
+    if (it.t === "note") {
+      var nt = el("div", "note");
+      nt.appendChild(el("span", "mk", it.mark || "★"));
+      nt.appendChild(el("span", "tx", it.text || ""));
+      return nt;
+    }
+    if (it.t === "chain") {
+      var c = el("div", "chain");
+      if (it.name) c.appendChild(el("div", "cn", it.name));
+      var cf = el("div", "cf");
+      var steps = it.steps && it.steps.length ? it.steps : [it.flow || ""];
+      steps.forEach(function(s, i){
+        cf.appendChild(el("span", "cs", s));
+        if (i < steps.length - 1) cf.appendChild(el("span", "ca", "→"));
+      });
+      c.appendChild(cf);
+      return c;
+    }
+    if (it.t === "mermaid") {
+      var m = el("div", "mmd mermaid");
+      m.textContent = it.code || "";
+      return m;
+    }
+    return el("div", "p", it.text || "");
+  }
+  var grid = document.getElementById("grid");
+  (data.blocks || []).forEach(function(b){ grid.appendChild(buildCard(b)); });
+  if (data.footer) {
+    var f = el("div", "p");
+    f.style.marginTop = "6px"; f.style.fontSize = "12px"; f.style.color = "#8b93a8";
+    f.textContent = data.footer;
+    grid.appendChild(f);
+  }
+  /* ---------- 视图切换（记在 localStorage） ---------- */
+  var KEY = "3dmg_view_mode";
+  var status = document.getElementById("status");
+  function apply(mode){
+    grid.classList.remove("force-landscape", "force-portrait");
+    if (mode === "force-landscape") grid.classList.add("force-landscape");
+    if (mode === "force-portrait") grid.classList.add("force-portrait");
+    status.innerHTML = "当前视图：<b>" + (
+      mode === "force-landscape" ? "强制横向（双栏）" :
+      mode === "force-portrait" ? "强制竖向（单列）" : "自动适配") + "</b>";
+    try {
+      if (mode) localStorage.setItem(KEY, mode); else localStorage.removeItem(KEY);
+    } catch (e) {}
+  }
+  document.getElementById("bLand").onclick = function(){ apply("force-landscape"); };
+  document.getElementById("bPort").onclick = function(){ apply("force-portrait"); };
+  document.getElementById("bAuto").onclick = function(){ apply(null); };
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  apply(saved);
+  /* ---------- Mermaid：渐进增强 ---------- */
+  var mmd = document.querySelectorAll(".mermaid");
+  if (mmd.length && window.mermaid) {
+    try { window.mermaid.initialize({ startOnLoad: false, theme: "neutral", securityLevel: "loose" });
+      window.mermaid.run({ nodes: mmd });
+    } catch (e) { /* 失败就保留原始链路展示，不影响阅读 */ }
+  }
+})();
+</script>
+</body>
+</html>

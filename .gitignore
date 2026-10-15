@@ -1,0 +1,28 @@
+# 操作系统 / 编辑器垃圾
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 压缩包 / 备份 / 缓存
+*.zip
+*.tar.gz
+*.bak
+*.tmp
+*~$*
+__pycache__/
+*.pyc
+.cache/
+
+# 密钥 / 环境配置（绝不入库）
+.env
+*.privacy.json
+*.local
+
+# 依赖（本技能脚本仅用 Python 标准库，无需 node_modules）
+node_modules/
+
+# 打印/临时产物
+*.log
+dist/
+build/
