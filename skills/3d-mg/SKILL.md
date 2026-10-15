@@ -63,6 +63,7 @@ reference_files:
 - 要把老员工脑子里的隐性经验结构化沉淀
 - 部门之间争议靠立场各让一步，需要数据裁决
 - 集团与事业部之间共享资源分配公平性争议
+- 企业把内部财报 / 审计报告 / 经营分析 / 中期事业计划等资料交来，要求按 3D-MG 做私有数据诊断并导出报告（模式六）
 
 **不用**：
 - 纯财务合规、税务筹划、准则适用、内控审计
@@ -120,6 +121,17 @@ reference_files:
 **模式五｜出正式文档（报告 / HTML 汇报）**
 用户要出正式交付物 → 读 `references/deliverable.md`（交付物清单、排版规范）。
 **要出自适应 HTML 汇报文档 → 读 `references/report_format.md` + 跑 `scripts/gen_report_html.py`。**
+
+**模式六｜企业内数导入分析（私有数据）**
+用户把本企业私有资料（财务报表 / 审计报告 / 经营分析 / 中期事业计划 MTP 等）放进本地目录，
+要求基于**内部真实数据**做诊断并导出报告。流程：
+1. 先生成「资料清单」——按 `templates/enterprise-data-manifest.md` 登记每份资料的类型、期间、路径、责任人与密级；
+   模型据此判断覆盖哪条链路、缺什么。
+2. 口径确认（沿用「开工前四件事」，内部口径签字人须为授权人）。
+3. **读资料 → 现状镜像（真实台账，不重做账）→ 因果镜像 → 推演镜像**，
+   **方法与上市公司诊断完全一致**，仅数据来源由「模型公开知识」换成「企业本地文档」。
+4. 导出：同模式五，产出 12 模块报告 + 自适应 HTML（默认存本地，**不外发**）。
+详细约定、目录结构、脱敏与保密红线见 `references/enterprise-ingest.md`。
 
 ## 可交付物清单
 
@@ -244,6 +256,8 @@ python3 scripts/gen_report_html.py 报告.dsl -o 报告.html --title "示例公�
 | `references/rollout.md` | 90 天试点日程、七道验收门、六条承诺、四种死法防线、五场合推广话术、问答手册 | 用户要推行/汇报时 |
 | `references/deliverable.md` | 交付物清单、排版规范（表格/图形）、嵌图硬坑、Word 生成注意事项 | 出正式文档时 |
 | `references/report_format.md` | **12 模块报告标准格式 + 行式 DSL + 通栏判定 + 十条自检** | 出诊断报告或 HTML 汇报文档时 |
+| `references/enterprise-ingest.md` | 企业本地数据导入分析：资料类型/目录约定/脱敏保密/与上市公司差异 | 走模式六（私有数据）时 |
+| `templates/enterprise-data-manifest.md` | 企业资料清单模板（类型/期间/路径/责任人/密级） | 导入内部数据前先填 |
 | `scripts/gen_report_html.py` | DSL → 自适应 HTML（窄屏单列/宽屏两栏/视图切换/localStorage） | 交付物 5 |
 | `scripts/gen_flowchart.py` | ASCII 制表流程图 → PNG 图形（SimSun 逐字符定位，保证框线对齐） | 需要把流程图做成图片时 |
 | `scripts/gen_docx.py` | 从 Markdown 源稿生成排版规范的 Word（表格列宽自适应、全左对齐、图形插入） | 需要出 Word 交付物时 |

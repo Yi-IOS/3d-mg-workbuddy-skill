@@ -12,6 +12,7 @@
 2. **7 项因果传导建模**——原材料-成本-毛利、客户年降、质量损失、共享资源、外部冲击预警等，输出文字版因果网络图
 3. **一页式理论框架**——三层镜像 + 三大底层理论 + 七项模型 + 闭环修正，单页可入汇报
 4. **自适应横竖屏 HTML 汇报文档**——手机窄屏单列 / 电脑宽屏两栏，同一文件自动适配 + 手动切换视图 + localStorage 记忆
+5. **企业本地数据导入分析（私有数据）**——把本企业财报 / 审计报告 / 经营分析 / 中期事业计划（MTP）等资料放入本地目录，按与上市公司**完全一致**的 3D-MG 方法产出诊断报告；**全程本地处理，脱敏后外发**
 
 ---
 
@@ -32,11 +33,13 @@
         │   ├── deliverable.md
         │   ├── rollout.md
         │   ├── causal-network.txt
-        │   └── case-jianghuai.md
+        │   ├── case-jianghuai.md
+        │   └── enterprise-ingest.md
         ├── templates/         # 自适应 HTML 模板、一页框架、Mermaid 模板
         │   ├── report-template.html
         │   ├── one-pager-framework.md
-        │   └── mermaid-template.md
+        │   ├── mermaid-template.md
+        │   └── enterprise-data-manifest.md
         ├── scripts/           # 可选：DSL→HTML / Markdown→Word / 流程图→PNG
         │   ├── gen_report_html.py
         │   ├── gen_docx.py
@@ -96,6 +99,24 @@ python3 skills/3d-mg/scripts/gen_report_html.py 报告.dsl -o 报告.html --titl
 ```
 
 12 模块格式与 DSL 规范见 `skills/3d-mg/references/report_format.md`。
+
+---
+
+---
+
+## 🏢 企业本地数据导入分析（私有数据）
+
+把本企业资料放进本地目录，即可像分析上市公司一样产出诊断报告——**方法完全相同，只是数据来源换成你的内部文档**。
+
+1. 在仓库内（或任意本地路径）建 `data/`，按类型分放：
+   `01_财务报表/`、`02_审计报告/`、`03_经营分析/`、`04_中期事业计划/`
+2. 复制 `skills/3d-mg/templates/enterprise-data-manifest.md` 为 `data/00_资料清单.md`，登记每份资料的
+   类型 / 期间 / 路径 / 责任人 / 密级。
+3. 对模型说：「按这份清单，对【企业名】做 3D-MG 企业内数导入分析，导出报告。」
+   模型会走 `skills/3d-mg/SKILL.md` 的**模式六**：读资料 → 三层镜像 → 导出 12 模块报告 + 自适应 HTML。
+
+**保密红线**：全程本地、不上传；报告默认本地，外发前须按清单密级脱敏。完整约定见
+`skills/3d-mg/references/enterprise-ingest.md`。
 
 ---
 
