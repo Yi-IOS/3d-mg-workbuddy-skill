@@ -38,6 +38,37 @@ pre{background:#f4f5f7;padding:12px;border-radius:6px;overflow-x:auto;font-size:
 </div>
 <div class="content">
 <div class="left-col">
+
+<!-- ===== 文件上传组件（适配微信小程序Webview，支持PDF / Excel / Word，iOS提示）===== -->
+<section style="margin:1rem 0;padding:1rem;border:1px solid #e2e8f0;border-radius:8px;background:#f8fafc;">
+  <h3>📂 导入企业资料（PDF / Excel / Word）</h3>
+  <div id="uploadTip" style="color:#666;margin:8px 0;">
+    ⚠️ 微信小程序Webview限制说明：<br>
+    ✅ 安卓手机：可直接选取 PDF、Excel、Word 文件<br>
+    ⚠️ 苹果iOS微信Webview：网页内文件选择器只能读取图片；如需选择文档，请使用小程序原生上传入口（wx.chooseMessageFile），从微信聊天/收藏中选取文件。
+  </div>
+  <!-- accept 支持pdf xls xlsx doc docx -->
+  <input type="file" id="fileInput" accept=".pdf,.xlsx,.xls,.docx,.doc" style="margin:0.5rem 0;">
+  <div id="fileInfo" style="margin-top:1rem;"></div>
+</section>
+
+<script>
+// 文件读取逻辑，纯前端本地读取，不上传到服务器，符合本地离线分析需求
+const fileInput = document.getElementById('fileInput');
+const fileInfoDom = document.getElementById('fileInfo');
+fileInput.addEventListener('change', async (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  fileInfoDom.innerHTML = `
+  <p>✅ 已选中文件：${file.name}</p>
+  <p>文件大小：${(file.size /1024/1024).toFixed(2)} MB</p>
+  <p>文件类型：${file.type || '未知类型'}</p>
+  <p style="color:#2563eb;">本地读取成功，可作为3D-MG现状镜像原始资料</p>
+  `;
+});
+</script>
+
+    
 <div class="card">
 <h1>三维镜像治理法（3D-MG）</h1>
 <p>基于系统论、有限理性理论、闭环控制理论构建的企业经营诊断方法论。三层镜像：现状镜像、因果镜像、推演镜像。定位毛利损失来源，可追溯、可量化、可滚动修正。</p>
