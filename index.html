@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三维镜像治理法 3D-MG</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Microsoft YaHei",sans-serif;}
+body{padding:16px;background:#f8f9fa;color:#222;}
+/* 状态提示栏 */
+.status-bar{padding:10px 14px;background:#eef5ff;border:1px solid #b8d4f7;border-radius:8px;margin-bottom:16px;font-weight:bold;color:#1a5fb4;}
+.ctrl-panel{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+button{padding:8px 14px;border-radius:6px;border:none;background:#2b6cb0;color:#fff;cursor:pointer;font-size:14px;}
+button:hover{background:#2c5282;}
+.container{max-width:1400px;margin:0 auto;}
+/* 自动模式：宽屏双栏，窄屏单列 */
+.auto .content{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media (max-width:768px){.auto .content{grid-template-columns:1fr;}}
+/* 强制竖向：永远单列 */
+.force-v .content{display:grid;grid-template-columns:1fr;gap:24px;}
+/* 强制横向：永远双栏 */
+.force-h .content{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.card{background:#fff;padding:20px;border-radius:10px;box-shadow:0 1px 4px #00000015;margin-bottom:16px;}
+h1{font-size:28px;margin-bottom:12px;color:#1a202c;}
+h2{font-size:20px;margin:18px 0 10px;color:#2d3748;border-left:4px solid #2b6cb0;padding-left:10px;}
+h3{font-size:17px;margin:14px 0 8px;color:#2d3748;}
+p{line-height:1.7;margin-bottom:10px;}
+pre{background:#f4f5f7;padding:12px;border-radius:6px;overflow-x:auto;font-size:13px;}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="status-bar" id="statusText">当前视图：自动模式</div>
+<div class="ctrl-panel">
+<button onclick="setMode('auto')">自动模式</button>
+<button onclick="setMode('force-h')">强制横向</button>
+<button onclick="setMode('force-v')">强制竖向</button>
+</div>
+<div class="content">
+<div class="left-col">
+<div class="card">
+<h1>三维镜像治理法（3D-MG）</h1>
+<p>基于系统论、有限理性理论、闭环控制理论构建的企业经营诊断方法论。三层镜像：现状镜像、因果镜像、推演镜像。定位毛利损失来源，可追溯、可量化、可滚动修正。</p>
+<h2>一、理论架构</h2>
+<h3>底层三大理论</h3>
+<p>1.系统论：把企业视为开放复杂系统，识别要素耦合关系</p>
+<p>2.有限理性：承认管理者信息不完备，不追求最优解，寻找满意解</p>
+<p>3.闭环控制：建立观测-分析-决策-执行-复盘闭环，持续修正</p>
+<h3>三层镜像</h3>
+<p>现状镜像：系统快照，采集经营数据，刻画当前企业基本面</p>
+<p>因果镜像：构建因果传导网络，定位损失传导链路</p>
+<p>推演镜像：情景模拟，预判不同干预动作带来的经营结果</p>
+</div>
+<div class="card">
+<h2>二、线性因果网络图</h2>
+<pre>
+外生冲击（原材料涨价/客户需求下滑）
+    ↓
+业务单元成本/收入扰动
+    ↓
+毛利变化、存货、应收、产能利用率波动
+    ↓
+事业部经营结果偏差
+    ↓
+集团合并利润、现金流
+    ↓
+复盘识别因果节点 → 制定干预措施 → 回传业务单元（闭环）
+</pre>
+</div>
+</div>
+<div class="right-col">
+<div class="card">
+<h2>三、因果镜像7项专项传导模型</h2>
+<h3>建模方法</h3>
+<p>识别输入变量、中间传导变量、结果变量；区分直接效应、间接效应、负外部性；构建文字因果网络图，定性+半定量评估传导强度。</p>
+<h3>资料库</h3>
+<p>上市公司财报、业务拆分表、产能、客户结构、原材料行情、KPI台账、历史经营复盘资料。</p>
+<h3>输出物</h3>
+<p>专项因果链路图、风险传导清单、关键影响因子排序、干预靶点建议。</p>
+<h3>模型示意图（文字版）</h3>
+<pre>
+原材料成本↑ → 单位毛利↓ → 产品盈利结构偏移 → 事业部利润↓
+客户订单下滑 → 产能利用率下降 → 单位固定成本抬升 → 毛利挤压
+质量损失 → 售后成本+客户流失 → 收入与利润双重下滑
+共享资源争夺 → 内部资源错配 → 多业务单元连锁影响
+</pre>
+</div>
+<div class="card">
+<h2>四、实操边界限定</h2>
+<p>✅适用：制造业、上市公司经营诊断、多事业部集团企业毛利治理</p>
+<p>❌不适用：初创无稳定经营数据企业、纯金融交易类业务</p>
+<p>边界：属于经营分析叠加工具，不替代财务审计、正式内控体系；依赖基础数据质量，数据失真则结论失效。</p>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+const bodyEl = document.body;
+const statusEl = document.getElementById('statusText');
+const storageKey = '3dmg-view-mode';
+// 初始化读取本地存储
+let currentMode = localStorage.getItem(storageKey) || 'auto';
+function renderMode(){
+    bodyEl.className = currentMode;
+    let tip;
+    if(currentMode === 'auto') tip = "当前视图：自动（宽屏横向双栏，窄屏竖向单列）";
+    else if(currentMode === 'force-h') tip = "当前视图：强制横向，固定双栏";
+    else tip = "当前视图：强制竖向，固定单列";
+    statusEl.innerText = tip;
+}
+function setMode(mode){
+    currentMode = mode;
+    localStorage.setItem(storageKey, mode);
+    renderMode();
+}
+renderMode();
+</script>
+</body>
+</html>
