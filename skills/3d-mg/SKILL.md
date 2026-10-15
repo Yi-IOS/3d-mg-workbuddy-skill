@@ -7,7 +7,7 @@ category: 企业管理 / 战略经营诊断
 version: 1.1.3
 author: IOS
 agent_created: true
-allowed-tools: Read, Write
+allowed-tools: Read, Write, Bash
 description: 三维镜像治理法（3D-MG）企业因果治理方法论。把经营结果反向拆解为可追溯、可计算、可滚动修正的因果链路，定位「毛利掉了多少、掉在哪、动了谁才能拿回来」，并据此修正现有 MTP／预算／经营计划。内置七项专项传导模型、因果建模 ABC 优先级策略、三层镜像（现状／因果／推演）建模流程、偏差三分类与闭环修正机制、六条推行纪律，以及 12 模块标准报告格式与自适应横竖屏 HTML 汇报文档生成器。当用户说「3D-MG」「三维镜像治理法」「因果镜像」「现状镜像」「推演镜像」「因果传导模型」「毛利为什么降了」「这个数字是怎么来的」「年降能不能接」「项目立项回报率怎么算」「质量成本到底多少」「建个因果模型」「经营偏差归因」「MTP 目标能不能达成」「帮我做一次现状镜像／因果定位／情景推演」，或需要把经营结果拆解到可操作变量、需要生成企业诊断报告或自适应 HTML 汇报文档时使用。
 description_zh: 基于系统论、有限理性、闭环控制三大底层理论构建的企业经营诊断方法论。以三层镜像（现状镜像、因果镜像、推演镜像）开展企业治理分析，支持 7 项因果传导建模，输出因果网络图、一页理论框架、完整诊断报告，并生成自适应横竖屏 HTML 汇报文档。
 description_en: 3D-MG 3d Mirror Governance. An enterprise diagnosis methodology based on system theory, bounded rationality and closed-loop control. Conduct corporate diagnosis with three mirrors, build 7 causal transmission models, and output a causal network diagram, one-page framework, full diagnosis report and adaptive landscape/portrait HTML report.
@@ -144,7 +144,7 @@ reference_files:
 
 模板已内置降级：未填数据时显示版式示例，便于你对照结构。
 
-（可选 · 需要 Bash 权限）如果你启用了 Bash，也可把报告先写成 DSL，再跑脚本：
+（已启用 Bash · 可选路径）也可把报告先写成 DSL，再跑脚本：
 
 ```bash
 python3 scripts/gen_report_html.py 报告.dsl -o 报告.html --title "示例公司（600000.SH）"
